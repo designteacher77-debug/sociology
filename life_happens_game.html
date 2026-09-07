@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Happens - Family Budgeting Simulation</title>
+</head>
+<body style="margin:0; padding:24px 16px; background-color:#16332b; font-family:Georgia, 'Times New Roman', serif;">
+
+  <div style="max-width:720px; margin:0 auto; background-color:#1e453a; border-radius:16px; padding:28px 24px; color:#f2ead9;">
+
+    <h1 style="text-align:center; font-size:28px; margin:0 0 4px 0; color:#f2ead9;">Life Happens</h1>
+    <p style="text-align:center; font-size:13px; margin:0 0 4px 0; color:#cfc6b3; font-family:'Courier New', monospace;">
+      a sociology family budgeting simulation &mdash; 10 points possible
+    </p>
+
+    <div id="familyBanner" style="text-align:center; font-family:'Courier New', monospace; font-size:12px; color:#b8893f; border-top:1px dashed #3a5c50; border-bottom:1px dashed #3a5c50; padding:10px 6px; margin:16px 0;">
+      No family selected yet &mdash; visit the "Choose a Family" tab.
+    </div>
+
+    <!-- TAB NAV -->
+    <div style="text-align:center; margin-bottom:18px;">
+      <button id="tabBtn-instructions" onclick="showTab('instructions')" style="font-family:'Courier New', monospace; font-size:12px; padding:9px 12px; margin:3px; border-radius:6px; border:1px solid #3a5c50; background-color:#b8893f; color:#2b2115; cursor:pointer;">Instructions</button>
+      <button id="tabBtn-families" onclick="showTab('families')" style="font-family:'Courier New', monospace; font-size:12px; padding:9px 12px; margin:3px; border-radius:6px; border:1px solid #3a5c50; background-color:transparent; color:#f2ead9; cursor:pointer;">Choose a Family</button>
+      <button id="tabBtn-cost" onclick="showTab('cost')" style="font-family:'Courier New', monospace; font-size:12px; padding:9px 12px; margin:3px; border-radius:6px; border:1px solid #3a5c50; background-color:transparent; color:#f2ead9; cursor:pointer;">Cost of Living</button>
+      <button id="tabBtn-cards" onclick="showTab('cards')" style="font-family:'Courier New', monospace; font-size:12px; padding:9px 12px; margin:3px; border-radius:6px; border:1px solid #3a5c50; background-color:transparent; color:#f2ead9; cursor:pointer;">Draw Cards</button>
+      <button id="tabBtn-reflection" onclick="showTab('reflection')" style="font-family:'Courier New', monospace; font-size:12px; padding:9px 12px; margin:3px; border-radius:6px; border:1px solid #3a5c50; background-color:transparent; color:#f2ead9; cursor:pointer;">Reflection</button>
+    </div>
+
+    <!-- INSTRUCTIONS TAB -->
+    <div id="tab-instructions" style="background-color:#f2ead9; color:#2b2620; border-radius:10px; padding:22px 22px; box-shadow:0 8px 18px rgba(0,0,0,0.35);">
+      <h2 style="margin-top:0; font-size:19px;">Directions</h2>
+      <p style="line-height:1.6; font-size:15px;">
+        After being placed in your family units, you will hold a family meeting where you need to create a monthly budget.
+        This budget needs to be based on your family's income, profile, and specific needs. Some of you will face difficult decisions
+        when it comes to what your family truly needs each month. After you have established your monthly budget, you will draw a
+        "Life Happens" card. This card will reveal the "hand" that life has dealt for you. You will then need to rework your budget.
+        When finished with your updated budget, draw another card and rework the budget again. You will draw one last card and rework
+        your budget and attempt to accommodate the events and circumstances of these cards.
+      </p>
+
+      <h2 style="font-size:19px;">The Objectives</h2>
+      <ol style="line-height:1.7; font-size:15px; padding-left:22px;">
+        <li>For families to provide their members with the basic necessities of: food, clothing, shelter, taxes.</li>
+        <li>For families to provide their children with the best possible education.</li>
+        <li>To maintain the physical and mental well-being of each family member by providing: health care, entertainment, vacations.</li>
+      </ol>
+
+      <h2 style="font-size:19px;">Calculating Your Budget</h2>
+      <ul style="line-height:1.7; font-size:15px; padding-left:22px;">
+        <li>Be sure to accommodate all mandatory expenditures.</li>
+        <li>Consider how your family is preparing for any unexpected expenses.</li>
+      </ul>
+
+      <h2 style="font-size:19px;">During the Exercise</h2>
+      <ul style="line-height:1.7; font-size:15px; padding-left:22px;">
+        <li>Each time you receive a "Life Happens" card, consider how the event impacts your budget and do your best to accommodate it.</li>
+        <li>When you get a new card, assume it is a new month (i.e., you just got paid).</li>
+        <li>As you experience different "Life Happens" events, discuss how the event impacts your family's quality of life.</li>
+        <li>Throughout the exercise, discuss: How is your family doing? Are you happy? Stressed out? "Successful," or merely getting by? What, if anything, needs to change to help you do better?</li>
+      </ul>
+
+      <p style="line-height:1.6; font-size:13px; color:#5c5344; border-top:1px dashed #d9cba8; padding-top:12px; margin-top:18px;">
+        A note about the families: income levels are based on data from the U.S. Census Bureau's "Income in the United States: 2024"
+        report (Current Population Survey, 2025 Annual Social and Economic Supplement, released September 2025). In 2024, median
+        U.S. household income was $83,730. Households in the lowest fifth (quintile) earned $34,510 or less; the second quintile
+        ran up to $65,100; the third quintile up to $105,500; and the fourth quintile up to $175,700, with the top fifth earning
+        more than that. The families below are placed at different points across that range and represent "typical" incomes for
+        the occupations described. None of the families meet official definitions of poor or marginally poor, so they do not
+        qualify for social services.
+      </p>
+    </div>
+
+    <!-- FAMILIES TAB -->
+    <div id="tab-families" style="display:none; background-color:#f2ead9; color:#2b2620; border-radius:10px; padding:22px 22px; box-shadow:0 8px 18px rgba(0,0,0,0.35);">
+      <h2 style="margin-top:0; font-size:19px;">Choose a Family</h2>
+      <p style="line-height:1.6; font-size:15px;">Your teacher may assign your group a family, or you can pick one below. Click "Select this family" to set it for the rest of the activity.</p>
+      <div id="familyList"></div>
+    </div>
+
+    <!-- COST OF LIVING TAB -->
+    <div id="tab-cost" style="display:none; background-color:#f2ead9; color:#2b2620; border-radius:10px; padding:22px 22px; box-shadow:0 8px 18px rgba(0,0,0,0.35);">
+      <h2 style="margin-top:0; font-size:19px;">Cost of Living Reference</h2>
+      <p style="line-height:1.6; font-size:15px;">Use these numbers to build and adjust your monthly budget. Tap a category to expand it.</p>
+      <div id="costList"></div>
+    </div>
+
+    <!-- CARDS TAB -->
+    <div id="tab-cards" style="display:none; background-color:#f2ead9; color:#2b2620; border-radius:10px; padding:22px 22px; box-shadow:0 8px 18px rgba(0,0,0,0.35);">
+      <h2 style="margin-top:0; font-size:19px;">Draw a "Life Happens" Card</h2>
+      <p style="line-height:1.5; font-size:14px; color:#5c5344;">Remember: each time you draw a card, assume it's a new month &mdash; you just got paid. Rework your budget to fit the event.</p>
+
+      <div style="background-color:#fffdf7; border:1px solid #d9cba8; border-radius:10px; padding:22px 18px; min-height:180px; margin-top:12px;">
+        <div id="cardTag" style="display:inline-block; font-family:'Courier New', monospace; font-size:11px; padding:3px 8px; border-radius:3px; background-color:#f3e2da; color:#8c3a2b; margin-bottom:12px;">
+          ready
+        </div>
+        <div id="cardText" style="font-size:16px; line-height:1.5;">
+          Click "Draw a card" below to begin.
+        </div>
+        <div id="cardCount" style="font-family:'Courier New', monospace; font-size:11px; color:#5c5344; text-align:right; margin-top:16px; padding-top:10px; border-top:1px dashed #d9cba8;"></div>
+      </div>
+
+      <div style="text-align:center; margin-top:18px;">
+        <span style="font-family:'Courier New', monospace; font-size:13px; background-color:#e7efdf; color:#3f6b3f; padding:6px 12px; border-radius:6px;" id="monthTracker">Month 0</span>
+      </div>
+
+      <div style="text-align:center; margin-top:16px;">
+        <button onclick="drawCard()" style="font-family:'Courier New', monospace; font-size:14px; font-weight:bold; padding:12px 22px; border-radius:8px; border:none; background-color:#b8893f; color:#2b2115; cursor:pointer; margin-right:10px;">
+          Draw a card
+        </button>
+        <button onclick="resetDeck()" style="font-family:'Courier New', monospace; font-size:14px; padding:12px 22px; border-radius:8px; border:1px solid #8c8272; background-color:transparent; color:#2b2620; cursor:pointer;">
+          Reshuffle deck
+        </button>
+      </div>
+
+      <p id="status" style="text-align:center; font-family:'Courier New', monospace; font-size:11px; color:#5c5344; margin-top:14px;"></p>
+    </div>
+
+    <!-- REFLECTION TAB -->
+    <div id="tab-reflection" style="display:none; background-color:#f2ead9; color:#2b2620; border-radius:10px; padding:22px 22px; box-shadow:0 8px 18px rgba(0,0,0,0.35);">
+      <h2 style="margin-top:0; font-size:19px;">Reflection</h2>
+      <p style="line-height:1.6; font-size:15px;">
+        The activity ends after your family has had adequate time to manage its budget for three months and deal with the
+        particular life circumstances determined by your profile and "Life Happens" cards. Write a reflection about your family's
+        experience: what life events happened, how you dealt with them, and what the impact was on your family. Answer the
+        following questions:
+      </p>
+      <ol style="line-height:1.7; font-size:15px; padding-left:22px;">
+        <li>What do you think about this scenario?</li>
+        <li>How did each of your budgets compare with each other?</li>
+        <li>How can you explain this through a sociological lens, rather than a personal one?</li>
+      </ol>
+      <p style="line-height:1.6; font-size:15px;">
+        Take a screenshot of your response and paste it in our shared Google Doc.
+      </p>
+      <textarea id="reflectionText" oninput="updateWordCount()" placeholder="Write your family's reflection here..." style="width:100%; box-sizing:border-box; min-height:180px; font-family:Georgia, serif; font-size:15px; padding:12px; border-radius:8px; border:1px solid #d9cba8; resize:vertical;"></textarea>
+      <p id="wordCount" style="font-family:'Courier New', monospace; font-size:11px; color:#5c5344; text-align:right; margin-top:6px;">0 words</p>
+    </div>
+
+  </div>
+
+<script>
+  /* ---------- TAB SWITCHING ---------- */
+  var tabs = ['instructions', 'families', 'cost', 'cards', 'reflection'];
+
+  function showTab(name) {
+    for (var i = 0; i < tabs.length; i++) {
+      var t = tabs[i];
+      document.getElementById('tab-' + t).style.display = (t === name) ? 'block' : 'none';
+      var btn = document.getElementById('tabBtn-' + t);
+      if (t === name) {
+        btn.style.backgroundColor = '#b8893f';
+        btn.style.color = '#2b2115';
+      } else {
+        btn.style.backgroundColor = 'transparent';
+        btn.style.color = '#f2ead9';
+      }
+    }
+  }
+
+  /* ---------- FAMILIES ---------- */
+  var families = [
+    {
+      title: "Family Profile #1",
+      gross: "$52,000.00",
+      afterTax: "$45,180.00",
+      monthly: "$3,765.00",
+      assets: "$0.00",
+      members: "1 Adult Female / 1 Adult Male / 1 female child age 6",
+      description: "Your family lives in an apartment in a small town outside a large metropolitan area. Both adults work full-time for minimum wage with a small employer ($12.50/hour). Your employers provide no health benefits or vacation time. There is no mass transit available. Your child has a learning disability and requires additional tutoring outside of the public school she attends."
+    },
+    {
+      title: "Family Profile #2",
+      gross: "$63,480.00",
+      afterTax: "$44,150.00",
+      monthly: "$3,679.17",
+      assets: "$0.00",
+      members: "2 adult females / 1 female child age 10 / 1 male teenager age 18",
+      description: "Your family lives in an apartment in a large metropolitan area. One adult works as a preschool teacher in the public school system; she and the 18-year-old are covered under her employer's insurance program. The other adult recently lost her job as an employee at a major appliance company. There is a metropolitan bus service available. The teenager is applying to college."
+    },
+    {
+      title: "Family Profile #3",
+      gross: "$83,800.00",
+      afterTax: "$71,560.00",
+      monthly: "$5,963.33",
+      assets: "$8,000.00 (non-liquid)",
+      members: "1 Adult Female / 1 Adult Male / 3 teenagers age 13-17",
+      description: "Your family lives in a (not-yet-paid-for) house in a small town outside a large metropolitan area. One adult works full-time at a refrigerator plant. The other adult works part-time at a catalog warehouse. There is a metropolitan bus service available. The youngest child is autistic and requires an adult be home with him."
+    },
+    {
+      title: "Family Profile #4",
+      gross: "$79,400.00",
+      afterTax: "$62,880.00",
+      monthly: "$5,240.00",
+      assets: "$8,000.00 (non-liquid)",
+      members: "1 Adult Female / 1 Adult Male / 1 female child age 4 / 1 male child age 8",
+      description: "Your family lives in a (not-yet-paid-for) house in a large metropolitan area. Both adults work full-time in a small business that you own. Your health insurance is provided through your business."
+    },
+    {
+      title: "Family Profile #5",
+      gross: "$119,470.00",
+      afterTax: "$92,390.00",
+      monthly: "$7,699.17",
+      assets: "$0.00",
+      members: "3 Adults / 1 male child age 10 / 1 female child age 12",
+      description: "Your family lives in a 3-bedroom apartment in a suburb of a large metropolitan area. An elderly relative recently moved in. One adult works full-time as a nurse's aide in a nearby hospital. Another adult works full-time as a school security guard. The elderly relative receives social security benefits but is not able to provide childcare. There is a metropolitan bus service available nearby."
+    },
+    {
+      title: "Family Profile #6",
+      gross: "$98,140.00",
+      afterTax: "$77,390.00",
+      monthly: "$6,449.17",
+      assets: "$16,120.00 (non-liquid)",
+      members: "2 Adult Males / 1 female child age 12 / 1 teenage male age 16",
+      description: "Your family lives in a (not-yet-paid-for) house in a large metropolitan area. You own two cars, one of which is paid for. Both adults work as public defenders, one full-time and the other part-time; each employer provides health benefits. Your son hopes to graduate early from high school and is considering traveling before college. Your daughter has a learning disability and requires additional tutoring outside of the public school she attends."
+    }
+  ];
+
+  var selectedFamilyIndex = -1;
+
+  function renderFamilies() {
+    var container = document.getElementById('familyList');
+    var html = '';
+    for (var i = 0; i < families.length; i++) {
+      var f = families[i];
+      html += '<div id="familyCard-' + i + '" style="border:2px solid #d9cba8; border-radius:10px; padding:16px; margin-bottom:14px; background-color:#fffdf7;">';
+      html += '<h3 style="margin:0 0 6px 0; font-size:16px;">' + f.title + '</h3>';
+      html += '<p style="margin:0 0 4px 0; font-size:13px; font-family:\'Courier New\', monospace; color:#5c5344;">';
+      html += 'Gross annual: ' + f.gross + ' &nbsp;|&nbsp; After-tax annual: ' + f.afterTax + '<br>';
+      html += 'Monthly income: ' + f.monthly + ' &nbsp;|&nbsp; Assets: ' + f.assets;
+      html += '</p>';
+      html += '<p style="margin:8px 0 10px 0; font-size:14px;"><strong>Family members:</strong> ' + f.members + '</p>';
+      html += '<button onclick="selectFamily(' + i + ')" style="font-family:\'Courier New\', monospace; font-size:12px; padding:8px 14px; border-radius:6px; border:none; background-color:#b8893f; color:#2b2115; cursor:pointer;">Select this family</button>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function selectFamily(index) {
+    selectedFamilyIndex = index;
+    var f = families[index];
+    document.getElementById('familyBanner').innerHTML =
+      'Your family: <strong>' + f.title + '</strong> &mdash; monthly income ' + f.monthly;
+
+    for (var i = 0; i < families.length; i++) {
+      var card = document.getElementById('familyCard-' + i);
+      card.style.borderColor = (i === index) ? '#3f6b3f' : '#d9cba8';
+      card.style.backgroundColor = (i === index) ? '#e7efdf' : '#fffdf7';
+    }
+  }
+
+  /* ---------- COST OF LIVING ---------- */
+  var costCategories = [
+    {
+      name: "Food",
+      items: [
+        "Food on sale (lower quality, mostly prepared foods): $150 per person",
+        "Food not on sale (higher quality, fresh vegetables, etc.): $250 per person"
+      ]
+    },
+    {
+      name: "Clothing",
+      items: [
+        "Buying new and cleaning old: $20.00 per person (minimum)"
+      ]
+    },
+    {
+      name: "Shelter",
+      items: [
+        "Renting a 2-bedroom apartment: $700 (electric not included)",
+        "Renting a 3-bedroom apartment: $950 (electric not included)",
+        "Mortgage on a 3-bedroom home: $1,000/month (no utilities included) + $1,800 annual property taxes"
+      ]
+    },
+    {
+      name: "Utilities",
+      items: [
+        "Gas/Water: $200",
+        "Electric: $100",
+        "Phone: $65 (minimum/person)"
+      ]
+    },
+    {
+      name: "Transportation",
+      items: [
+        "New car payment &mdash; Lexus RX 350: $700",
+        "New car payment &mdash; Honda Civic Hybrid: $400",
+        "New car payment &mdash; Ford Fusion: $320",
+        "Used car: $200/month (repairs and service costs)"
+      ]
+    },
+    {
+      name: "Car Insurance",
+      items: [
+        "Package 1: $90/month/car ($500 deductible, no uninsured-driver coverage)",
+        "Package 2: $135/month/car ($250 deductible, uninsured-driver coverage)",
+        "Gas: $200/car/month (minimum)",
+        "Bus: $47/month/person"
+      ]
+    },
+    {
+      name: "Education",
+      items: [
+        "Public school (through high school): Free",
+        "Catholic high school: $8,600/year",
+        "Prep school (day student): $14,000/year",
+        "Prep school (boarding student): $33,000/year",
+        "Community college: $5,000/year",
+        "State college: $7,400/year",
+        "Ivy League: $59,000/year",
+        "College application fees: $40.00/college"
+      ]
+    },
+    {
+      name: "Health Insurance",
+      items: [
+        "Bronze plan: $90/individual, covers 60% of costs",
+        "Silver plan: $150/individual, covers 70% of costs",
+        "Gold plan: $300/individual, covers 80% of costs",
+        "Platinum plan: $400/individual, covers 90% of costs"
+      ]
+    },
+    {
+      name: "Child Care",
+      items: [
+        "Basic care (no activities/education programs): $250 (1 child), $450 (2+ children)",
+        "Quality care (activities and educational programs): $900 (1 child), $1,200 (2+ children)"
+      ]
+    },
+    {
+      name: "Misc. Personal & Household Expenses",
+      items: [
+        "Everyday costs (toothpaste to home repairs): $81.25/person",
+        "Taxes: $50.00/person",
+        "Credit card bills: $125.00/month (minimum payment)"
+      ]
+    },
+    {
+      name: "Optional Expenses",
+      items: [
+        "Cable: $50/month",
+        "Broadband internet: $30.00/month",
+        "Netflix/Hulu subscription: $8.00/month",
+        "Movies: $20.00/adult, $15.00/child",
+        "Donations (religious organizations, charities): you determine the amount",
+        "Personal (haircuts, cosmetics): you determine the amount",
+        "Gym membership: $40/month",
+        "Pet food/pet care: $40/month"
+      ]
+    },
+    {
+      name: "Other Costs From \"Life Happens\" Events",
+      items: [
+        "Live-in nurse: $500/week",
+        "Physician (office visit only): $75",
+        "X-rays and other tests: $500 per x-ray/test",
+        "Hospital stay: $1,500/day",
+        "Prenatal visits: $300.00",
+        "Braces: $2,500",
+        "Car repairs: $150",
+        "Plumber: $100/hour (3 hour minimum)",
+        "Hotel: $175/night, or motel: $95/night",
+        "Dining out (fancy): $30/person",
+        "Dining out (fast food): $10/person"
+      ]
+    }
+  ];
+
+  function renderCostOfLiving() {
+    var container = document.getElementById('costList');
+    var html = '';
+    for (var i = 0; i < costCategories.length; i++) {
+      var cat = costCategories[i];
+      html += '<details style="margin-bottom:10px; border:1px solid #d9cba8; border-radius:8px; padding:10px 14px; background-color:#fffdf7;">';
+      html += '<summary style="cursor:pointer; font-weight:bold; font-size:15px;">' + cat.name + '</summary>';
+      html += '<ul style="margin:10px 0 4px 0; padding-left:20px; font-size:14px; line-height:1.7;">';
+      for (var j = 0; j < cat.items.length; j++) {
+        html += '<li>' + cat.items[j] + '</li>';
+      }
+      html += '</ul></details>';
+    }
+    container.innerHTML = html;
+  }
+
+  /* ---------- CARDS ---------- */
+  var cards = [
+    { text: "Oh no! An adult loses their job. Unemployment only pays 60% of the original salary and won't be received for six weeks.", type: "expense" },
+    { text: "You get into a car accident, and your car needs repairs. The mechanic says it will cost $850. Review your budget to see if it is possible to get your car repaired.", type: "expense" },
+    { text: "Your house is flooded and you have to find a different place to stay for two weeks. Adjust your budget to pay for a hotel and food expenses.", type: "expense" },
+    { text: "Your sister is getting married in Atlanta. Review your budget to see if your whole family can buy a gift and attend the wedding.", type: "expense" },
+    { text: "The weather outside drops to below freezing, and the pipes burst in your kitchen. You need to pay $300 for a plumber. Adjust your budget.", type: "expense" },
+    { text: "You forget to pay your gas bill and the electric company disconnects your service. It will require $162.47 to reconnect your service. Review your budget to see if you can find the necessary funds to do so.", type: "expense" },
+    { text: "A recent trip to the dentist reveals that a family member will need extensive dental work totaling at least $350.00. Review your budget to see if you can afford this expense.", type: "expense" },
+    { text: "You receive $2000 for your tax refund! Make the necessary adjustments to your budget.", type: "gain" },
+    { text: "Congratulations! You won $5,000 in the lottery!! Make the necessary adjustments to your budget.", type: "gain" },
+    { text: "Your car breaks down on the highway. You can't get to work. Make the necessary changes in your budget for increased expenses for car repairs. If you are an hourly wage earner, also include the loss of the day's pay.", type: "expense" },
+    { text: "Your CD matures! You gain $500! Make the necessary adjustments to your budget.", type: "gain" },
+    { text: "Your teenage son gets his girlfriend pregnant. You agree to take care of medical and other expenses. Include in your budget increased expenses for medical care (such as monthly pre-natal visits) as well as the food, clothing and shelter arrangements necessary.", type: "expense" },
+    { text: "Your child has a bad reaction to mandatory immunizations and needs to be hospitalized. Include in your budget increased expenses for medical care (a minimum of 3 days in the hospital, a month of prescriptions).", type: "expense" },
+    { text: "Your child's school band wins a competition that makes them eligible to go to Europe. Each child has to contribute $1000 in order to be included on the trip. Review your budget to see if it is possible for your child to go.", type: "expense" },
+    { text: "A friend needs to borrow $150 to keep their electricity from being shut off. Review your budget to see if you can help your friend.", type: "expense" },
+    { text: "Your child wants to join the travel sports team at school. They will need to pay $125 in order to participate. You will incur additional costs (gas money, eating out, etc.) as you travel with them. Review your budget to see if you can afford this expense.", type: "expense" },
+    { text: "You go to the casino and lose $500! Make the necessary adjustments to your budget.", type: "expense" },
+    { text: "Your nephew graduates from college!! Review your budget to see if you can afford a graduation gift.", type: "expense" },
+    { text: "It's your mom's birthday! You need to buy her a gift!! Review your budget to see if you can afford this expense.", type: "expense" },
+    { text: "A bill collector calls, demanding you pay $175.00 in past due credit card bills. If you don't pay, you will be reported to a collection agency. Review your budget to see if you can pay this bill.", type: "expense" },
+    { text: "Because of your hard work you get a bonus! Your salary increases by 10%. Make the necessary changes to your budget.", type: "gain" },
+    { text: "Your place of business begins to lose profits. As a result, you take a 20% cut in pay. Make the necessary changes to your budget.", type: "expense" },
+    { text: "Your child wants to get a puppy. Review your budget to see if you can afford the $300 in initial vet costs as well as monthly costs for food and pet care.", type: "expense" },
+    { text: "Your child just made the final cuts for the basketball team at school. Review your budget to see if you can afford the $200 for equipment (shoes, uniform, etc.).", type: "expense" },
+    { text: "After months of dealing with a painful tooth, you visit the dentist and find that you need a root canal and crown. Review your budget to see if you can afford a $500 root canal and a $700 crown. If not, you will need to pay $50 to have the tooth pulled.", type: "expense" },
+    { text: "A hail storm damages your car hood and windshield. Review your budget to see if you can afford to repair the car.", type: "expense" },
+    { text: "Your car needs new tires. Review your budget to see if you can afford $500 for new tires installation.", type: "expense" },
+    { text: "The metro bus breaks down and you are unable to get to work. Take a day's worth of pay out of your budget.", type: "expense" },
+    { text: "Oops... You forgot to use protection! A new member of your family is on the way! Include in your budget increased expenses for medical care (such as monthly pre-natal visits) as well as the food, clothing and shelter arrangements necessary.", type: "expense" },
+    { text: "Congratulations! Your child receives a scholarship to the college of her or his choice! Make the necessary changes in your budget.", type: "gain" },
+    { text: "Your building has been slated for demolition. You must relocate ASAP. Include in your budget the necessary changes to account for moving expenses, etc.", type: "expense" },
+    { text: "Telegram: Your elderly parents (who both require constant medical care) are coming to live with you. Include in your budget increased expenses for medical care as well as the food, clothing and shelter arrangements necessary.", type: "expense" },
+    { text: "Oops... You've been audited! You owe $15,000 in back taxes. Include in your budget the increased expenses.", type: "expense" },
+    { text: "The school nurse calls. Your child fell and broke an arm. Include in your budget the increased cost for medical care.", type: "expense" },
+    { text: "Due to your poor diet, your children develop serious medical ailments. Include in your budget increased expenses for medical care (a minimum of 3 days in the hospital, a month of prescriptions) as well as an improved diet.", type: "expense" },
+    { text: "Junior needs braces! Without this orthodontic work, your child will suffer socially as well as physically. Include in your budget the increased expenses necessary.", type: "expense" },
+    { text: "It's your child's birthday and they want to have a party...with plenty of presents!! Review your budget to see if you can afford this expense.", type: "expense" },
+    { text: "Your child's school can't afford basic supplies like paper, pencils, markers, and crayons. You need to purchase $30.00 worth of school supplies.", type: "expense" },
+    { text: "Your furnace goes out and it's 25 degrees outside. Review your budget to see if you can afford $400 to service the furnace.", type: "expense" },
+    { text: "Your child's school indicates that your child will do better in school if they have access to a home computer. Review your budget to see if you can afford $1000 for a new computer and internet service.", type: "expense" }
+  ];
+
+  var deck = [];
+  var drawnCount = 0;
+
+  function shuffleArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
+  function updateStatus() {
+    var statusEl = document.getElementById('status');
+    if (deck.length > 0) {
+      statusEl.innerHTML = deck.length + " card" + (deck.length === 1 ? "" : "s") + " left in the deck";
+    } else {
+      statusEl.innerHTML = "Deck is empty &mdash; reshuffle to keep going";
+    }
+  }
+
+  function drawCard() {
+    if (deck.length === 0) {
+      return;
+    }
+    var card = deck.pop();
+    drawnCount = drawnCount + 1;
+
+    var tagEl = document.getElementById('cardTag');
+    var textEl = document.getElementById('cardText');
+    var countEl = document.getElementById('cardCount');
+    var monthEl = document.getElementById('monthTracker');
+
+    if (card.type === 'gain') {
+      tagEl.innerHTML = 'windfall';
+      tagEl.style.backgroundColor = '#e7efdf';
+      tagEl.style.color = '#3f6b3f';
+    } else {
+      tagEl.innerHTML = 'expense';
+      tagEl.style.backgroundColor = '#f3e2da';
+      tagEl.style.color = '#8c3a2b';
+    }
+
+    textEl.innerHTML = card.text;
+    countEl.innerHTML = 'card ' + drawnCount + ' of ' + cards.length;
+    monthEl.innerHTML = 'Month ' + drawnCount;
+
+    updateStatus();
+  }
+
+  function resetDeck() {
+    deck = shuffleArray(cards);
+    drawnCount = 0;
+    document.getElementById('cardTag').innerHTML = 'ready';
+    document.getElementById('cardTag').style.backgroundColor = '#f3e2da';
+    document.getElementById('cardTag').style.color = '#8c3a2b';
+    document.getElementById('cardText').innerHTML = 'Click "Draw a card" below to begin.';
+    document.getElementById('cardCount').innerHTML = '';
+    document.getElementById('monthTracker').innerHTML = 'Month 0';
+    updateStatus();
+  }
+
+  /* ---------- REFLECTION ---------- */
+  function updateWordCount() {
+    var text = document.getElementById('reflectionText').value.trim();
+    var count = text.length === 0 ? 0 : text.split(/\s+/).length;
+    document.getElementById('wordCount').innerHTML = count + ' words';
+  }
+
+  /* ---------- INIT ---------- */
+  renderFamilies();
+  renderCostOfLiving();
+  resetDeck();
+  showTab('instructions');
+</script>
+
+</body>
+</html>
